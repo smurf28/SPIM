@@ -1,5 +1,5 @@
 /**********************************************************************
- Java CUP specification for a parser for C-- programs
+ Java CUP specification for a parser for CFlat programs
  **********************************************************************/
 
 import java_cup.runtime.*;
@@ -36,7 +36,7 @@ terminal                COUT;
 terminal                IF;
 terminal                ELSE;
 terminal                WHILE;
-terminal TokenVal       RETURN;
+terminal                RETURN;
 terminal IdTokenVal     ID;
 terminal IntLitTokenVal INTLITERAL;
 terminal StrLitTokenVal STRINGLITERAL;
@@ -68,6 +68,9 @@ terminal                ASSIGN;
 
 
 /* Nonterminals
+ *
+ * NOTE: You will need to add more nonterminals to this list as you
+ *       add productions to the grammar below.
  */
 non terminal ProgramNode      program;
 non terminal LinkedList       declList;
@@ -93,7 +96,7 @@ non terminal ExpNode          loc;
 non terminal IdNode           id;
  
  
-/* precedence and associativity declarations */
+/* NOTE: Add precedence and associativity declarations here */
 precedence right ASSIGN;
 precedence left OR;
 precedence left AND;
@@ -107,7 +110,7 @@ start with program;
 
 /* Grammar with actions
  *
- * grammar rules
+ * NOTE: add more grammar rules below
  */
 program         ::= declList: d
                 {: RESULT = new ProgramNode(new DeclListNode(d));
@@ -245,8 +248,8 @@ stmt            ::= assignExp:ae SEMICOLON
                 | RETURN exp:e SEMICOLON
                 {: RESULT = new ReturnStmtNode(e);
                 :}
-                | RETURN:r SEMICOLON
-                {: RESULT = new ReturnStmtNode(null,r.charnum,r.linenum);
+                | RETURN SEMICOLON
+                {: RESULT = new ReturnStmtNode(null);
                 :}
                 | fncall:f SEMICOLON
                 {: RESULT = new CallStmtNode(f);
@@ -373,5 +376,4 @@ loc             ::= id:i
 id              ::= ID:i
                 {: RESULT = new IdNode(i.linenum, i.charnum, i.idVal);
                 :}
-                ;
-                
+;

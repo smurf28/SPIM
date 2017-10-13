@@ -60,8 +60,7 @@ EmptySymTableException.class: EmptySymTableException.java
 # test
 #
 test:
-	java -cp $(CP) Main
-
+	java -cp $(CP)  Main hello.cmm hello.out  hello.mips
 ###
 # clean
 ###

@@ -6,7 +6,8 @@ import java.util.*;
  */
 public class SymInfo {
     private Type type;
-    
+    private int offset = 0;
+    private boolean global = false;
     public SymInfo(Type type) {
         this.type = type;
     }
@@ -14,7 +15,22 @@ public class SymInfo {
     public Type getType() {
         return type;
     }
-    
+    public void setOffset(int offset){
+		this.offset = offset;
+	}
+
+	public int getOffset(){
+		return this.offset;
+	}
+
+	// Global Variable //
+	public void setGlobal(){
+		this.global = true;
+	}
+
+	public boolean isGlobal(){
+		return this.global;
+        }
     public String toString() {
         return type.toString();
     }
@@ -30,7 +46,7 @@ class FnInfo extends SymInfo {
     private Type returnType;
     private int numParams;
     private List<Type> paramTypes;
-    
+    private int formalsSize = 0;
     public FnInfo(Type type, int numparams) {
         super(new FnType());
         returnType = type;

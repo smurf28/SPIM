@@ -68,7 +68,9 @@ public class SymTable {
             throw new EmptySymTableException();
         bindings.remove(0);
     }
-
+	public int size(){
+		return bindings.size();
+	}
     /**
      * Print the Symbol Table on System.out
      */
