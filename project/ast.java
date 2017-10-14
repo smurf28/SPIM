@@ -3,7 +3,7 @@ import java.util.*;
 
 // **********************************************************************
 // The ASTnode class defines the nodes of the abstract-syntax tree that
-// represents a Mini program.
+// represents a C-- program.
 //
 // Internal nodes of the tree contain pointers to children, organized
 // either in a list (for nodes that may have a variable number of 
@@ -669,16 +669,14 @@ class FnDeclNode extends DeclNode {
 	 */
 	public void codeGen() {
 		// Preamble //
-		Codegen.generate(".text");
 
 		if(myId.name().equals("main")){
-			Codegen.generate(".globl main");
 			Codegen.genLabel("main");
 			Codegen.genLabel("__start");
 		}
 		else
 			Codegen.genLabel("_" + myId.name()); // normal functions
-
+		String jump_label = Codegen.nextLabel();
 		// Push return addr //
 		Codegen.genPush(Codegen.RA);
 		// PUsh control link //
@@ -692,7 +690,8 @@ class FnDeclNode extends DeclNode {
 		myBody.codeGen();
 
 		// Epilogue //
-		Codegen.genLabel("epilogue_" + myId.name());
+		
+		Codegen.genLabel(jump_label);
 		// Return addr //
 		Codegen.generateIndexed("lw", Codegen.RA, Codegen.FP, -formalsSize);
 		// Control Link //
