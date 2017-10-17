@@ -700,8 +700,6 @@ class FnDeclNode extends DeclNode {
 		Codegen.genPush(Codegen.FP);
 		// Set FP //
 		Codegen.generate("addu", Codegen.FP, Codegen.SP, (formalsSize * 4) + 8);
-		// Push space for locals //
-		Codegen.generate("addu",  Codegen.SP, Codegen.SP, localsSize * 4);
 		Codegen.generate("\t#Begin Function Body");
 		// codeGen() the body //
 		myBody.codeGen();
