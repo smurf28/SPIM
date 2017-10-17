@@ -195,7 +195,7 @@ public class Codegen {
         int space = MAXLEN - opcode.length() + 2;
     
         p.print(label + ":");
-        p.print("\t" + opcode);
+        p.print("\n\t" + opcode);
         if (arg1 != "") {
             for (int k = 1; k <= space; k++) 
                 p.print(" ");
